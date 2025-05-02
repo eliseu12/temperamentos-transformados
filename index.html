@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Player de Áudio Responsivo</title>
+  <!-- Ícone padrão (será substituído dinamicamente) -->
+  <link rel="icon" id="favicon" href="https://live.staticflickr.com/65535/54486174445_b15e9effdd_n.jpg" sizes="300x300" type="image/jpeg">
+
   <style>
     body {background-color:#000;color:#fff;font-family:Arial,sans-serif;display:flex;flex-direction:column;align-items:center;padding:20px;min-height:100vh;}
     .cover{width:100%;max-width:300px;margin-bottom:20px;}
@@ -21,44 +24,51 @@
     .playlist-item{padding:14px 10px;margin-bottom:8px;cursor:pointer;border-bottom:1px solid #333;text-align:left;font-size:16px;line-height:1.4;}
     .playlist-item:hover{background:#222;}
     .playlist-item.active{background:#333;}
-    @media(max-width:400px){
-      .control-btn{width:60px;height:60px;}
-      .control-btn svg{width:36px;height:36px;}
-      .track-title{font-size:16px;}
-      .playlist-item{font-size:14px;padding:12px 8px;margin-bottom:6px;}
-    }
+    @media(max-width:400px){.control-btn{width:60px;height:60px;}.control-btn svg{width:36px;height:36px;}.track-title{font-size:16px;}.playlist-item{font-size:14px;padding:12px 8px;margin-bottom:6px;}}
   </style>
 </head>
 <body>
-<div class="cover">
-  <img id="cover-image" src="https://live.staticflickr.com/65535/54486174445_b15e9effdd_n.jpg" alt="Capa do Álbum"/>
-</div>
-<div class="player">
-  <div class="track-title" id="track-title">Selecione um Capítulo</div>
-  <div class="controls">
-    <button id="prev-btn" class="control-btn" title="Anterior"><svg viewBox="0 0 24 24"><path d="M18 20l-8.5-8L18 4v16zM6 4h2v16H6V4z"/></svg></button>
-    <button id="play-btn" class="control-btn" title="Play/Pause">
-      <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      <svg id="pause-icon" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-    </button>
-    <button id="next-btn" class="control-btn" title="Próxima"><svg viewBox="0 0 24 24"><path d="M6 4l8.5 8L6 20V4zm9 0h2v16h-2V4z"/></svg></button>
+  <div class="cover">
+    <img id="cover-image" src="https://live.staticflickr.com/65535/54486174445_b15e9effdd_n.jpg" alt="Capa do Álbum"/>
   </div>
-  <div class="progress-bar" id="progress-bar"><div class="progress" id="progress"></div></div>
-  <div class="time-info"><span id="current-time">00:00</span><span id="total-time">00:00</span></div>
-  <audio id="audio-player">Seu navegador não suporta o elemento de áudio.</audio>
-  <div class="playlist" id="playlist">
-    <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%201.mp3" data-title="A teoria dos quatro emperamentos">1 - A teoria dos quatro emperamentos</div>
-    <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%202.mp3" data-title="A contaminação pelo freudianismo">2 - A contaminação pelo freudianismo</div>
-    <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%203.mp3" data-title="Uso e abuso da ferramenta">3 - Uso e abuso da ferramenta</div>
-    <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%204.mp3" data-title="Pedro, o sanguíneo">4 - Pedro, o sanguíneo</div>
-    <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%205.mp3" data-title="Paulo, o colérico">5 - Paulo, o colérico</div>
-    <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%206.mp3" data-title="Moisés, o melancólico">6 - Moisés, o melancólico</div>
-    <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%207.mp3" data-title="Abraão, o fleumático">7 - Abraão, o fleumático</div>
-    <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%208.mp3" data-title="O andar transformado">8 - O andar transformado</div>
+  <div class="player">
+    <div class="track-title" id="track-title">Selecione um Capítulo</div>
+    <div class="controls">
+      <button id="prev-btn" class="control-btn" title="Anterior"><svg viewBox="0 0 24 24"><path d="M18 20l-8.5-8L18 4v16zM6 4h2v16H6V4z"/></svg></button>
+      <button id="play-btn" class="control-btn" title="Play/Pause">
+        <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="pause-icon" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <button id="next-btn" class="control-btn" title="Próxima"><svg viewBox="0 0 24 24"><path d="M6 4l8.5 8L6 20V4zm9 0h2v16h-2V4z"/></svg></button>
+    </div>
+    <div class="progress-bar" id="progress-bar"><div class="progress" id="progress"></div></div>
+    <div class="time-info"><span id="current-time">00:00</span><span id="total-time">00:00</span></div>
+    <audio id="audio-player">Seu navegador não suporta o elemento de áudio.</audio>
+    <div class="playlist" id="playlist">
+      <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%201.mp3" data-title="A teoria dos quatro emperamentos">1 - A teoria dos quatro emperamentos</div>
+      <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%202.mp3" data-title="A contaminação pelo freudianismo">2 - A contaminação pelo freudianismo</div>
+      <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%203.mp3" data-title="Uso e abuso da ferramenta">3 - Uso e abuso da ferramenta</div>
+      <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%204.mp3" data-title="Pedro, o sanguíneo">4 - Pedro, o sanguíneo</div>
+      <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%205.mp3" data-title="Paulo, o colérico">5 - Paulo, o colérico</div>
+      <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%206.mp3" data-title="Moisés, o melancólico">6 - Moisés, o melancólico</div>
+      <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%207.mp3" data-title="Abraão, o fleumático">7 - Abraão, o fleumático</div>
+      <div class="playlist-item" data-src="https://archive.org/download/cap-5_202504/cap%208.mp3" data-title="O andar transformado">8 - O andar transformado</div>
+    </div>
   </div>
-</div>
-<script>
-const audioPlayer=document.getElementById('audio-player'),playBtn=document.getElementById('play-btn'),prevBtn=document.getElementById('prev-btn'),nextBtn=document.getElementById('next-btn'),trackTitle=document.getElementById('track-title'),playlistItems=document.querySelectorAll('.playlist-item'),progressBar=document.getElementById('progress-bar'),progress=document.getElementById('progress'),playIcon=document.getElementById('play-icon'),pauseIcon=document.getElementById('pause-icon'),currentTimeDisplay=document.getElementById('current-time'),totalTimeDisplay=document.getElementById('total-time');let isPlaying=false,currentIndex=0,tracks=Array.from(playlistItems);function formatTime(s){let m=Math.floor(s/60),sec=Math.floor(s%60);return`${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`}function loadTrack(i){tracks.forEach(e=>e.classList.remove('active'));let it=tracks[i];it.classList.add('active');audioPlayer.src=it.dataset.src;trackTitle.textContent=it.dataset.title}function playPause(){if(!audioPlayer.src)return;isPlaying?audioPlayer.pause():audioPlayer.play()}playBtn.addEventListener('click',playPause),prevBtn.addEventListener('click',()=>{currentIndex=(currentIndex-1+tracks.length)%tracks.length,loadTrack(currentIndex),audioPlayer.play()}),nextBtn.addEventListener('click',()=>{currentIndex=(currentIndex+1)%tracks.length,loadTrack(currentIndex),audioPlayer.play()}),audioPlayer.addEventListener('play',()=>{isPlaying=!0,playIcon.style.display='none',pauseIcon.style.display='inline'}),audioPlayer.addEventListener('pause',()=>{isPlaying=!1,playIcon.style.display='inline',pauseIcon.style.display='none'}),audioPlayer.addEventListener('loadedmetadata',()=>{totalTimeDisplay.textContent=formatTime(audioPlayer.duration)}),audioPlayer.addEventListener('timeupdate',()=>{if(!audioPlayer.duration)return;progress.style.width=(audioPlayer.currentTime/audioPlayer.duration*100)+'%',currentTimeDisplay.textContent=formatTime(audioPlayer.currentTime)}),audioPlayer.addEventListener('ended',()=>{currentIndex=(currentIndex+1)%tracks.length,loadTrack(currentIndex),audioPlayer.play()}),progressBar.addEventListener('click',e=>{let r=progressBar.getBoundingClientRect();audioPlayer.currentTime=(e.clientX-r.left)/r.width*audioPlayer.duration}),playlistItems.forEach((it,i)=>it.addEventListener('click',()=>{currentIndex=i,loadTrack(i),audioPlayer.play()}));
-</script>
+  <script>
+    const audioPlayer=document.getElementById('audio-player'),playBtn=document.getElementById('play-btn'),prevBtn=document.getElementById('prev-btn'),nextBtn=document.getElementById('next-btn'),trackTitle=document.getElementById('track-title'),coverImage=document.getElementById('cover-image'),playlistItems=document.querySelectorAll('.playlist-item'),progressBar=document.getElementById('progress-bar'),progress=document.getElementById('progress'),playIcon=document.getElementById('play-icon'),pauseIcon=document.getElementById('pause-icon'),currentTimeDisplay=document.getElementById('current-time'),totalTimeDisplay=document.getElementById('total-time'),faviconLink=document.getElementById('favicon');
+    let isPlaying=false,currentIndex=0,tracks=Array.from(playlistItems);
+    function formatTime(s){const m=Math.floor(s/60),sec=Math.floor(s%60);return`${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`}    
+    function updateMetadata(){const title=tracks[currentIndex].dataset.title; if('mediaSession' in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:title,artwork:[{src:coverImage.src,sizes:'300x300',type:'image/jpeg'}]});navigator.mediaSession.playbackState=isPlaying?'playing':'paused';navigator.mediaSession.setActionHandler('play',()=>playPause());navigator.mediaSession.setActionHandler('pause',()=>playPause());navigator.mediaSession.setActionHandler('previoustrack',()=>prevBtn.click());navigator.mediaSession.setActionHandler('nexttrack',()=>nextBtn.click());navigator.mediaSession.setActionHandler('seekbackward',({seekOffset})=>{audioPlayer.currentTime=Math.max(audioPlayer.currentTime-(seekOffset||10),0);});navigator.mediaSession.setActionHandler('seekforward',({seekOffset})=>{audioPlayer.currentTime=Math.min(audioPlayer.currentTime+(seekOffset||10),audioPlayer.duration);});}
+    document.title=`${title} – Player de Áudio`;faviconLink.href=coverImage.src;}    
+    function loadTrack(i){tracks.forEach(e=>e.classList.remove('active'));tracks[i].classList.add('active');audioPlayer.src=tracks[i].dataset.src;trackTitle.textContent=tracks[i].dataset.title;currentIndex=i;updateMetadata();}     
+    function playPause(){if(!audioPlayer.src)return;isPlaying?audioPlayer.pause():audioPlayer.play();}    
+    playBtn.addEventListener('click',playPause);prevBtn.addEventListener('click',()=>{currentIndex=(currentIndex-1+tracks.length)%tracks.length;loadTrack(currentIndex);audioPlayer.play();});nextBtn.addEventListener('click',()=>{currentIndex=(currentIndex+1)%tracks.length;loadTrack(currentIndex);audioPlayer.play();});
+    audioPlayer.addEventListener('play',()=>{isPlaying=true;playIcon.style.display='none';pauseIcon.style.display='inline';updateMetadata();});audioPlayer.addEventListener('pause',()=>{isPlaying=false;playIcon.style.display='inline';pauseIcon.style.display='none';updateMetadata();});
+    audioPlayer.addEventListener('loadedmetadata',()=>{totalTimeDisplay.textContent=formatTime(audioPlayer.duration);});audioPlayer.addEventListener('timeupdate',()=>{if(!audioPlayer.duration)return;progress.style.width=`${(audioPlayer.currentTime/audioPlayer.duration)*100}%`;currentTimeDisplay.textContent=formatTime(audioPlayer.currentTime);});audioPlayer.addEventListener('ended',()=>{currentIndex=(currentIndex+1)%tracks.length;loadTrack(currentIndex);audioPlayer.play();});
+    progressBar.addEventListener('click',e=>{const r=progressBar.getBoundingClientRect();audioPlayer.currentTime=(e.clientX-r.left)/r.width*audioPlayer.duration;});playlistItems.forEach((item,i)=>item.addEventListener('click',()=>{currentIndex=i;loadTrack(i);audioPlayer.play();}));
+    // Carrega primeira faixa automaticamente
+    loadTrack(0);
+  </script>
 </body>
 </html>
