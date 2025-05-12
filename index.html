@@ -413,14 +413,14 @@
 
     function updateMetadata() {
       const title = tracks[currentIndex].dataset.title;
-      document.title = `${title} – Humildade a Beleza da Santidade`;
+      document.title = `${title} – Temperamentos Transformados`;
       audioPlayer.playbackRate = parseFloat(speedSelect.value);
       document.getElementById('track-title').textContent = title;
 
       if ('mediaSession' in navigator) {
         navigator.mediaSession.metadata = new MediaMetadata({
           title,
-          artist: 'Humildade a Beleza da Santidade',
+          artist: 'Temperamentos Transformados',
           artwork: [{ src: coverImage.src, sizes:'300x300', type:'image/jpeg' }]
         });
         navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
